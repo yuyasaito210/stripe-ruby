@@ -1,37 +1,33 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+
 development:
-    adapter: postgresql
-    database: stripe_ruby
-    encoding: utf8
-    username: postgres # ADD DATABASE USERNAME
-    password: postgres # ADD DATABASE PASSWORD
-    host: localhost
+  <<: *default
+  database: stripe_ruby
+  username: postgres
+  password: postgres
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test: &test
-    adapter: postgresql
-    database: stripe_ruby_test
-    encoding: utf8
-    username: postgres # ADD DATABASE USERNAME
-    password: postgres # ADD DATABASE PASSWORD
-    host: localhost
+  <<: *default
+  database: stripe_ruby_test
+  username: postgres # ADD DATABASE USERNAME
+  password: postgres # ADD DATABASE PASSWORD
 
 staging:
-    adapter: postgresql
-    database: stripe_ruby_staging
-    encoding: utf8
-    username: postgres # ADD DATABASE USERNAME
-    password: postgres # ADD DATABASE PASSWORD
-    host: localhost
+  <<: *default
+  database: stripe_ruby_staging
+  username: postgres # ADD DATABASE USERNAME
+  password: postgres # ADD DATABASE PASSWORD
 
 production:
-    adapter: postgresql
-    database: stripe_ruby_production
-    encoding: utf8
-    username: postgres # ADD DATABASE USERNAME
-    password: postgres # ADD DATABASE PASSWORD
-    host: localhost
+  <<: *default
+  database: stripe_ruby_production
+  username: <%= ENV['DATABASE_USER_NAME'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
 
 cucumber:
   <<: *test
