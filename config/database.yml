@@ -1,5 +1,5 @@
 development:
-    adapter: mysql2
+    adapter: postgres
     database: stripe_ruby
     encoding: utf8
     username: root # ADD DATABASE USERNAME
@@ -10,7 +10,7 @@ development:
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test: &test
-    adapter: mysql2
+    adapter: postgres
     database: stripe_ruby_test
     encoding: utf8
     username: root # ADD DATABASE USERNAME
@@ -18,7 +18,7 @@ test: &test
     host: localhost
 
 staging:
-    adapter: mysql2
+    adapter: postgres
     database: stripe_ruby_staging
     encoding: utf8
     username: root # ADD DATABASE USERNAME
@@ -26,7 +26,7 @@ staging:
     host: localhost
 
 production:
-    adapter: mysql2
+    adapter: postgres
     database: stripe_ruby_production
     encoding: utf8
     username: root # ADD DATABASE USERNAME
