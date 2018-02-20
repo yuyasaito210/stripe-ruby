@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :subscriptions, only: [:new, :create]
   devise_for :users
   post 'subscription_checkout' => 'subscriptions#subscription_checkout'
-  post 'webhooks' => 'subscriptions#webhooks'
+  post 'webhooks' => 'subscriptions#webhook'
   get 'plans' => 'subscriptions#plans'
   root to: 'charges#new'
 
