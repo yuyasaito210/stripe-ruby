@@ -1,0 +1,28 @@
+<%= form_tag subscriptions_path do %>
+  <article>
+    <% if flash[:error].present? %>
+      <div id="error_explanation">
+        <p><%= flash[:error] %></p>
+      </div>
+    <% end %>
+    <label class="amount">
+      <span>Amount: $10</span>
+    </label>
+  </article>
+
+  <div class="form-group">
+    <%= label_tag "Plan name", nil, required: true %>
+    <%= text_field_tag :name, nil%>
+  </div>
+
+  <div class="form-group">
+    <%= label_tag "Plan interval", nil, required: true %>
+    <%= select_tag 'interval', options_for_select(['month', 'year']), multiple: false, :include_blank => true,  class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= label_tag "Plan Value", nil, required: true %>
+    <%= text_field_tag :amount, nil%>
+  </div>
+
+  <%= button_tag "Submit to Stripe", class: "btn", style: "color: white;background: rgb(242, 118, 73);" %>
+<% end %>
