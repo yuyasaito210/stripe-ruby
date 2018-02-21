@@ -11,11 +11,8 @@ class ChargesController < ApplicationController
     service_fee = (@amount * fee / 100).floor
     price_for_rebel = @amount - service_fee
 
-
 		create_stripe_account_with_bank_info
 		
-		# charge = destination_charge_mode(params[:stripeToken], "acct_1BaGNkBduFifQJag", total_price, service_fee)
-
 		charge = destination_and_customer_charge_mode(params[:stripeToken], "acct_1BaGNkBduFifQJag", 
 			total_price, service_fee, nil, "renegolden331@gmail.com")
 
@@ -72,6 +69,7 @@ class ChargesController < ApplicationController
 	end
 
 	def destination_charge_mode(source_token_visa, destination_account, total_amount, fee)
+		# Make paymemt from client to rebel.
 		charge = Stripe::Charge.create({
 		  :amount => total_amount,
 		  :currency => "usd",
@@ -96,18 +94,6 @@ class ChargesController < ApplicationController
 
 	  customer_id = customer.id
     # Make paymemt from client to rebel.
-    # charge_to_rebel = Stripe::Charge.create(
-    #   customer: customer_id,
-    #   amount: total_price,
-    #   description: "Test.",
-    #   currency: 'usd',
-    #   destination: {
-    #     account: "acct_1BaGNkBduFifQJag",
-    #     amount: price_for_rebel
-    #   }
-    # )
-    # Rails.logger.info "=== charge_to_rebel: #{charge_to_rebel.inspect} ==="
-
 	  charge_to_rebel = Stripe::Charge.create(
 	    customer: customer.id,
 	    amount: total_price,
@@ -120,7 +106,6 @@ class ChargesController < ApplicationController
 		  {:stripe_account => "acct_1BaGNkBduFifQJag"}
 		)
 		Rails.logger.info "=== balance_txn: #{balance_txn.inspect} ==="
-		# balance_txn = Stripe::Balance.retrieve(charge_to_rebel.balance_transaction)
 
 	  Stripe::Payout.create({
 		  :amount => 10000,

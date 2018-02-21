@@ -143,19 +143,7 @@ class SubscriptionsController < ApplicationController
 	  )
 
 	  customer_id = customer.id
-    # Make paymemt from client to rebel.
-    # charge_to_rebel = Stripe::Charge.create(
-    #   customer: customer_id,
-    #   amount: total_price,
-    #   description: "Test.",
-    #   currency: 'usd',
-    #   destination: {
-    #     account: "acct_1BaGNkBduFifQJag",
-    #     amount: price_for_rebel
-    #   }
-    # )
-    # Rails.logger.info "=== charge_to_rebel: #{charge_to_rebel.inspect} ==="
-
+ 
 	  charge_to_rebel = Stripe::Charge.create(
 	    customer: customer.id,
 	    amount: total_price,
@@ -167,8 +155,6 @@ class SubscriptionsController < ApplicationController
    	balance_txn = Stripe::Balance.retrieve(
 		  {:stripe_account => "acct_1BaGNkBduFifQJag"}
 		)
-		Rails.logger.info "=== balance_txn: #{balance_txn.inspect} ==="
-		# balance_txn = Stripe::Balance.retrieve(charge_to_rebel.balance_transaction)
 
 	  Stripe::Payout.create({
 		  :amount => 10000,
